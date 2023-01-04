@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn server for DOMAIN
+
+[Service]
+Restart=on-failure  
+User=ec2-user
+WorkingDirectory=/home/ec2-user/sites/DOMAIN  
+EnvironmentFile=/home/ec2-user/sites/DOMAIN/.env  
+
+ExecStart=/home/ec2-user/sites/DOMAIN/virtualenv/bin/gu
+nicorn \
+    --bind unix:/home/ec2-user/tmp/DOMAIN.socket \
+    superlists.wsgi:application  
+
+[Install]
+WantedBy=multi-user.target 
